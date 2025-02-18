@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Game Details</title> 
+  
+  <!-- Bootstrap CSS for responsive design and styling -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <!-- Game data from 'games.js' -->
+  <script src="games.js"></script>
+  <!-- Custom functionality from 'script.js' (handles game details, cart, etc.) -->
+  <script src="script.js"></script>
+
+</head>
+
+<body class="gamebody">
+  <!-- Header section for game details page -->
+  <header class="bg-dark text-white py-3">
+    <div class="header-container">
+      <h1 class="ms-3" id="game-name">GAME STORE</h1> <!-- Game name will be dynamically set -->
+      
+      <!-- Back button linking back to the game catalog (index.html) -->
+      <div class="center-content">
+        <a href="index.html" class="back-button">Back to Store</a>
+      </div>
+
+      <!-- Cart Icon and Login section -->
+      <div class="me-3 d-flex align-items-center">
+        <!-- Cart Icon with dynamic badge for number of items in the cart -->
+        <span id="cart-icon" class="me-3">
+          <button class="btn btn-outline-light position-relative" onclick="viewCart()"> <!-- Button to view cart -->
+            Cart <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span> <!-- Badge displaying number of items in the cart -->
+          </button>
+        </span>
+
+        <!-- Login Button or User Greeting (dynamically changes based on login status) -->
+        <span id="login-container">
+          <button id="login-btn" class="btn btn-outline-light" onclick="login()">Login</button> <!-- Login button -->
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content for the game details page -->
+  <div class="container my-5">
+    <div class="row">
+      <!-- Left column for game image -->
+      <div class="col-md-6">
+        <div class="image-wrapper">
+          <img src="" id="game-image" class="img-fluid" alt="Game Image"> <!-- Image will be dynamically set -->
+        </div>
+      </div>
+
+      <!-- Right column for game details -->
+      <div class="col-md-6">
+        <h2 id="game-title">Game Title</h2> <!-- Game title (dynamically loaded) -->
+        <p><strong>Price:</strong> $<span id="game-price">0.00</span></p> <!-- Game price (dynamically loaded) -->
+        <p><strong>Description:</strong> <span id="game-description">Game Description</span></p> <!-- Game description (dynamically loaded) -->
+        <p><strong>Developer:</strong> <span id="game-developer">Developer</span></p> <!-- Game developer (dynamically loaded) -->
+        <p><strong>Release Date:</strong> <span id="game-release">Release Date</span></p> <!-- Release date (dynamically loaded) -->
+
+        <!-- Input field for selecting quantity -->
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" class="form-control w-50" name="quantity" value="1" min="1"> <!-- Quantity input -->
+
+        <!-- Button to add the game to the cart -->
+        <button id="add-to-cart-btn" class="btn btn-primary mt-3">Add to Cart</button>
+
+        <hr> <!-- Horizontal line separator -->
+        <h4>Reviews</h4> <!-- Section for game reviews -->
+        <div id="game-reviews"></div> <!-- Reviews will be dynamically loaded -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal for displaying cart contents -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartModalLabel">Your Shopping Cart</h5> <!-- Cart modal title -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Button to close the modal -->
+        </div>
+
+        <!-- Modal Body (where cart items will be dynamically added) -->
+        <div class="modal-body" id="cart-content">
+          <!-- Cart items will be dynamically loaded here by 'viewCart()' -->
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <!-- Close modal button -->
+          <button type="button" class="btn btn-primary" onclick="checkout()">Proceed to Checkout</button> <!-- Proceed to checkout button -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External script for Font Awesome icons (e.g., shopping cart icon) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <!-- Bootstrap JS for modal and responsive behaviors -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

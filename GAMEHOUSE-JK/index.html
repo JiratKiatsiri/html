@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Rubik+Mono+One&family=Sixtyfour+Convergence&display=swap"
+    rel="stylesheet">
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script src="games.js" defer></script>
+  <script src="script.js" defer></script>
+
+</head>
+
+<!-- Top Section -->
+<body onload="loadGames(); checkLoginStatus(); updateCartIcon();">
+  <header class="bg-dark text-white text-center py-3 d-flex justify-content-between">
+    <h1 class="ms-3">GAME HOUSE: <span style="color: rgb(238, 206, 64);">Give Us Money</span></h1>
+
+    <div class="me-3 d-flex align-items-center">
+      <span id="cart-icon" class="me-3">
+        <button class="btn btn-outline-light position-relative" onclick="viewCart()">
+          Cart <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+        </button>
+      </span>
+      <span id="login-container">
+        <button id="login-btn" class="btn btn-outline-light" onclick="login()">Login</button>
+      </span>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <section class="banner-section text-center py-5">
+    <div class="container">
+      <h2 class="display-4">Welcome to Game House!</h2>
+      <p class="lead">🎉 Welcome to the ultimate gaming paradise! 🎮 Act now to claim your exclusive access to the hottest games at shockingly low prices! These deals won't last—get in before it's too late and transform your gaming experience forever!</p>
+    </div>
+  </section>
+
+
+  <!-- Category Buttons -->
+  <section class="container my-4">
+    <div class="btn-group" role="group" aria-label="Game Categories">
+      <button class="btn category-btn" onclick="filterByCategory('All')">
+        <i class="fas fa-list"></i> All Games
+      </button>
+      <button class="btn category-btn" onclick="filterByCategory('Action RPG')">
+        <i class="fas fa-gamepad"></i> Action RPG
+      </button>
+      <button class="btn category-btn" onclick="filterByCategory('RPG')">
+        <i class="fas fa-book-open"></i> RPG
+      </button>
+      <button class="btn category-btn" onclick="filterByCategory('Action-Adventure')">
+        <i class="fas fa-sword"></i> Action-Adventure
+      </button>
+      <button class="btn category-btn" onclick="filterByCategory('Horror')">
+        <i class="fas fa-ghost"></i> Horror
+      </button> 
+      <button class="btn category-btn" onclick="filterByCategory('Simulation')">
+        <i class="fas fa-cogs"></i> Simulation
+      </button>
+    </div>
+  </section>
+
+  <!-- Search Bar -->
+  <section class="container my-4">
+    <div class="row">
+      <div class="col-md-12">
+        <input type="text" id="search-bar" class="form-control" placeholder="Search for games..."
+          onkeyup="filterGames()">
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Catalog -->
+  <section class="container my-5">
+    <div class="row" id="product-list">
+      <!-- Game Cards Will Be Dynamically Loaded Here -->
+    </div>
+  </section>
+
+  <!-- Cart Modal -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartModalLabel">Your Shopping Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="cart-content">
+          <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing fake scam ads -->
+  <div class="fake-scam-ad fake-scam-ad-right" id="scamAdRight">
+    <button class="close-btn" onclick="closeAd('scamAdRight')">X</button>
+    <img src="32.jpeg" alt="You Won!" class="scam-ad-image">
+    <h3 class="scam-ad-title">CONGRATULATIONS!</h3>
+    <p class="scam-ad-text">You are the <strong>1,000,000th visitor</strong>! Click <a href="#">here</a> to claim him!
+    </p>
+    <p class="scam-ad-small-text">Limited time only! Just pay $999.99 shipping and handling.</p>
+    <button class="scam-ad-button">Claim Now!</button>
+  </div>
+
+  <div class="fake-scam-ad fake-scam-ad-right" id="scamAdRight2">
+    <button class="close-btn" onclick="closeAd('scamAdRight2')">X</button>
+    <img src="54.jpg" alt="Exclusive Offer" class="scam-ad-image">
+    <h3 class="scam-ad-title">LAST CHANCE!</h3>
+    <p class="scam-ad-text">Tired of people getting in your way? Need someone to *disappear*? Our elite operatives are ready to handle your problems... permanently.</p>
+    <p class="scam-ad-small-text">No questions asked. Silence is guaranteed. ⚠️ Time is running out—act before it's too late!</p>
+    <button class="scam-ad-button">Contact Us—If You Dare!</button>
+</div>
+
+  <div class="fake-scam-ad fake-scam-ad-left" id="scamAdLeft">
+    <button class="close-btn" onclick="closeAd('scamAdLeft')">X</button>
+    <img src="miraramen.jpg" alt="Free Gift" class="scam-ad-image">
+    <h3 class="scam-ad-title">YOU WONT LAST <span style="color: rgb(0, 255, 255); font-size: 40pt;">5 MINS</span> WITH
+      HIM!</h3>
+    <p class="scam-ad-text">Local Japanese <strong>20 KM</strong> from your area! <a href="#"></a> No credit-card, no
+      signup, no bullshit.</p>
+    <p class="scam-ad-small-text">Hurry! Pay just $499.99 for shipping.</p>
+    <button class="scam-ad-button">Get It Now!</button>
+  </div>
+
+</body>
+
+<!-- External scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
